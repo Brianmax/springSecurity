@@ -1,0 +1,26 @@
+version: "3"
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: security
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pg_spring_data:/var/lib/postgresql/data
+      - ./sqlScripts:/docker-entrypoint-initdb.d
+  app:
+    build: .
+    image:
+      spring_security
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: password
+    ports:
+      - "8080:8080"
+volumes:
+  pg_spring_data:

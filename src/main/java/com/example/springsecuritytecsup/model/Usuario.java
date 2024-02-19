@@ -24,9 +24,6 @@ public class Usuario {
     private String email;
     @Size(min = 10)
     private String password;
-    @OneToMany
-    @JoinColumn(name = "student_id")
-    Set<Nota> notas;
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
